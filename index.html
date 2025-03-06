@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 Марта!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 4vw;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out, colorChange 6s infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #fff;
+            font-size: 1.8vw;
+            margin-top: 20px;
+            animation: fadeIn 3s ease-in-out;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Улучшенная анимация цветов */
+        .flowers-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .flower {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transform-origin: center;
+            z-index: 1;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
+        
+        .flower:nth-child(odd) {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23FF80AB' d='M50 15c-5 0-10 5-10 10s5 10 10 10 10-5 10-10-5-10-10-10zm-25 25c-5 0-10 5-10 10s5 10 10 10 10-5 10-10-5-10-10-10zm50 0c-5 0-10 5-10 10s5 10 10 10 10-5 10-10-5-10-10-10zm-25 25c-5 0-10 5-10 10s5 10 10 10 10-5 10-10-5-10-10-10z'/%3E%3Ccircle fill='%23FFEB3B' cx='50' cy='50' r='10'/%3E%3C/svg%3E");
+        }
+        
+        .flower:nth-child(even) {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23F06292' d='M50 10c-3 10-12 20-20 20s-7-15 0-20 10 0 20 0zm0 0c3 10 12 20 20 20s7-15 0-20-10 0-20 0zm0 0c-10 3-20 12-20 20s15 7 20 0 0-10 0-20zm0 0c10 3 20 12 20 20s-15 7-20 0 0-10 0-20z'/%3E%3Ccircle fill='%23FFF176' cx='50' cy='50' r='10'/%3E%3C/svg%3E");
+        }
+
+        /* Добавляем больше цветов для более насыщенной анимации */
+        .flower:nth-child(3n) {
+            width: 40px;
+            height: 40px;
+        }
+
+        .flower:nth-child(5n) {
+            width: 80px;
+            height: 80px;
+            opacity: 0.7;
+        }
+
+        /* Ключевые кадры анимации */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { 
+                transform: translate(0, 0) rotate(0deg) scale(0.8); 
+                opacity: 0; 
+            }
+            20% { 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(1); 
+                opacity: 1; 
+            }
+            80% { 
+                opacity: 0.8; 
+            }
+            100% { 
+                transform: translate(calc(var(--tx) * 2), calc(var(--ty) * 2)) rotate(calc(var(--rot) * 2)) scale(0.8); 
+                opacity: 0; 
+            }
+        }
+
+        @keyframes colorChange {
+            0% { color: #fff; }
+            25% { color: #ffcdd2; }
+            50% { color: #f8bbd0; }
+            75% { color: #e1bee7; }
+            100% { color: #d1c4e9; }
+        }
+
+        /* Блестящий эффект */
+        .shine {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            animation: shine 4s infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes shine {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+            100% { transform: scale(0.8); opacity: 0; }
+        }
+
+        /* Сердечки */
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23FF4081' d='M50 90C40 80 10 60 10 35c0-20 15-25 25-25 15 0 15 10 15 15 0-5 0-15 15-15 10 0 25 5 25 25 0 25-30 45-40 55z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        @keyframes heartBeat {
+            0% { 
+                transform: translate(var(--x), -100%) scale(0.5) rotate(var(--r)); 
+                opacity: 0; 
+            }
+            50% { 
+                transform: translate(var(--x), var(--y)) scale(1) rotate(var(--r)); 
+                opacity: 0.8; 
+            }
+            100% { 
+                transform: translate(var(--x), 100vh) scale(0.5) rotate(var(--r)); 
+                opacity: 0; 
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+            p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flowers-container" id="flowersContainer"></div>
+    
+    <div class="container">
+        <h1>С 8 Марта!</h1>
+        <p>Желаем счастья, любви и весны в душе!</p>
+    </div>
+    
+    <div class="shine"></div>
+
+    <script>
+        // Функция для создания цветов с разными параметрами движения
+        function createFlowers(count) {
+            const container = document.getElementById('flowersContainer');
+            
+            for (let i = 0; i < count; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                
+                // Задаем случайные параметры для каждого цветка
+                const posX = Math.random() * 100; // случайная начальная позиция по X (%)
+                const duration = 6 + Math.random() * 10; // случайная длительность анимации (6-16 секунд)
+                const delay = Math.random() * 5; // случайная задержка начала (0-5 секунд)
+                
+                // Случайные смещения для анимации
+                const tx = (Math.random() - 0.5) * 300; // случайное смещение по X (-150px до 150px)
+                const ty = (Math.random() - 0.5) * 300; // случайное смещение по Y (-150px до 150px)
+                const rot = (Math.random() - 0.5) * 360; // случайный поворот (-180deg до 180deg)
+                
+                // Устанавливаем CSS свойства
+                flower.style.left = `${posX}%`;
+                flower.style.top = `${Math.random() * 100}%`;
+                flower.style.setProperty('--tx', `${tx}px`);
+                flower.style.setProperty('--ty', `${ty}px`);
+                flower.style.setProperty('--rot', `${rot}deg`);
+                flower.style.animation = `float ${duration}s infinite ease-in-out ${delay}s`;
+                
+                container.appendChild(flower);
+            }
+        }
+
+        // Функция для создания сердечек
+        function createHearts(count) {
+            const container = document.getElementById('flowersContainer');
+            
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                
+                // Задаем случайные параметры
+                const x = Math.random() * 100; // позиция по X в %
+                const y = 50 + Math.random() * 50; // позиция по Y (нижняя половина экрана)
+                const duration = 4 + Math.random() * 6; // длительность 4-10 секунд
+                const delay = Math.random() * 8; // задержка 0-8 секунд
+                const rotate = -30 + Math.random() * 60; // поворот от -30 до +30 градусов
+                
+                heart.style.setProperty('--x', `${x}%`);
+                heart.style.setProperty('--y', `${y}%`);
+                heart.style.setProperty('--r', `${rotate}deg`);
+                heart.style.animation = `heartBeat ${duration}s infinite ease-in-out ${delay}s`;
+                
+                container.appendChild(heart);
+            }
+        }
+
+        // Создаем цветы и сердечки при загрузке страницы
+        window.addEventListener('load', () => {
+            createFlowers(20); // 20 цветов
+            createHearts(15); // 15 сердечек
+        });
+    </script>
+</body>
+</html>
